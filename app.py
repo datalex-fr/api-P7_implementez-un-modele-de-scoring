@@ -159,7 +159,7 @@ def features():
 @app.route('/feature_importance/')
 def send_feat_imp():
     feat_imp = pd.Series(model.feature_importances_,
-                         index=X_test.columns).sort_values(ascending=True)
+                         index=X_test.columns).sort_values(ascending=False)
     feat_imp_json = json.loads(feat_imp.to_json())
     return jsonify({'status': 'pass',
                     'data': feat_imp_json})
