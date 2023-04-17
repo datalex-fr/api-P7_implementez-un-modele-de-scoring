@@ -67,7 +67,7 @@ def get_df_neigh_20(selected_id_client):
     y_neigh = y_train.loc[nearest_client_idx]
     return x_neigh, y_neigh
 
-#?SK_ID_CURR=165690
+#/neigh_client/?SK_ID_CURR=165690
 @app.route('/neigh_client/')
 def neigh_client():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
@@ -87,7 +87,7 @@ def neigh_client():
 
 @app.route('/shap_val/')
 #get shap values of the client and 20 nearest neighbors
-#?SK_ID_CURR=165690
+#/shap_val/?SK_ID_CURR=165690
 def shap_value():
     #selectionner l'id client en requete http
     selected_id_client = int(request.args.get('SK_ID_CURR'))
@@ -130,7 +130,7 @@ def all_proc_data():
 
 
 #score client 
-#/?SK_ID_CURR=165690
+#/score_client/?SK_ID_CURR=165690
 @app.route('/score_client/')
 def score_client():
     #selectionner l'id client en requete http
