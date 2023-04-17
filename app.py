@@ -7,7 +7,7 @@ from sklearn.neighbors import NearestNeighbors
 import shap
 #Chargement des données
 model = joblib.load('classifier_lgbm_model.pkl')
-threshold = joblib.load('threshold.pkl')
+threshold = joblib.load('threshold.joblib')
 X_test = joblib.load('X_test.csv')
 X_train = joblib.load('X_train.csv')
 y_test = joblib.load('y_test.csv')
