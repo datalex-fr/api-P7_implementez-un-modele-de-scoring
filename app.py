@@ -52,22 +52,117 @@ def selected_client_data():
 
 
 
+#chercher les 20 NN du train_set
+def get_df_neigh_20(selected_id_client):
+    #fit des NN
+    NN = NearestNeighbors(n_neighbors=10)
+    NN.fit(X_train)
+    X_client = X.loc[selected_id_client: selected_id_client]
+    idx = NN.kneighbors(X=X_client,
+                        n_neighbors=10,
+                        return_distance=False).ravel()
+    nearest_client_idx = list(X_train.iloc[idx].index)
+    #données et cibles des NN
+    x_neigh = X_train.loc[nearest_client_idx, :]
+    y_neigh = y_train.loc[nearest_client_idx]
+    return x_neigh, y_neigh
+
+#?SK_ID_CURR=165690
+@app.route('/neigh_client/')
+def neigh_client():
+    selected_id_client = int(request.args.get('SK_ID_CURR'))
+    #selectionner l'id client en requete http et retourner les NN
+    data_neigh, y_neigh = get_df_neigh_20(selected_id_client)
+    #convertir en JSON
+    data_neigh_json = json.loads(data_neigh.to_json())
+    y_neigh_json = json.loads(y_neigh.to_json())
+    #retourner le flux en json
+    return jsonify({'status': 'pass',
+                    'y_neigh':  y_neigh_json,
+                    'data_neigh': data_neigh_json},
+                   )
 
 
 
 
+@app.route('/shap_val/')
+#get shap values of the client and 20 nearest neighbors
+#?SK_ID_CURR=165690
+def shap_value():
+    #selectionner l'id client en requete http
+    selected_id_client = int(request.args.get('SK_ID_CURR'))
+    #recuperer le NN
+    X_neigh, y_neigh = get_df_neigh_20(selected_id_client)
+    X_client = X.loc[selected_id_client: selected_id_client]
+    #preparer les valeurs shap des NN + client
+    shap.initjs()
+    #creation du TreeExplainer avec le model
+    explainer = shap.TreeExplainer(model)
+    #valeurs
+    expected_vals = pd.Series(list(explainer.expected_value))
+    #calcule des valeurs shap du client
+    shap_vals_client = pd.Series(list(explainer.shap_values(X_client)[1]))
+    #calcule des valeurs shap des NN
+    shap_val_neigh_ = pd.Series(list(explainer.shap_values(X_neigh)[1]))
+    #pd.Series en JSON
+    X_neigh_json = json.loads(X_neigh.to_json())
+    expected_vals_json = json.loads(expected_vals.to_json())
+    shap_val_neigh_json = json.loads(shap_val_neigh_.to_json())
+    shap_vals_client_json = json.loads(shap_vals_client.to_json())
+    #retourner le flux en json
+    return jsonify({'status': 'pass',
+                    'X_neigh_': X_neigh_json,
+                    'shap_val_neigh': shap_val_neigh_json,
+                    'expected_vals': expected_vals_json,
+                    'shap_val_client': shap_vals_client_json})
 
 
+#affichage donnée
+@app.route('/all_proc_data/')
+def all_proc_data():
+    #recuperer toutes les données de X_train et y_train
+    #retourner le flux en json
+    X_train_json = json.loads(x_train_sample.to_json())
+    y_train_json = json.loads(y_train_sample.to_json())
+    return jsonify({'status': 'pass',
+                    'X_train': X_train_json,
+                    'y_train': y_train_json})
 
 
+#score client 
+#/?SK_ID_CURR=165690
+@app.route('/score_client/')
+def score_client():
+    #selectionner l'id client en requete http
+    client_id = int(request.args.get('SK_ID_CURR'))
+    #recuperer les données du client
+    X_client = X.loc[client_id:client_id]
+    #calcul du score client
+    score = model.predict_proba(X_client)[:, 1][0]
+    return jsonify({'status': 'pass',
+                    'SK_ID_CURR': client_id,
+                    'score': score,
+                    'thresh': threshold})
 
 
+#features du model lgbm
+@app.route('/feature/')
+def features():
+    feat = X_test.columns
+    f = pd.Series(feat)
+    feat_json = json.loads(f.to_json())
+    return jsonify({'status': 'pass',
+                    'data': feat_json})
 
 
-
-
-
-
+#feature importance du model lgbm
+@app.route('/feature_importance/')
+def send_feat_imp():
+    feat_imp = pd.Series(model.feature_importances_,
+                         index=X_test.columns).sort_values(ascending=False)
+    feat_imp_json = json.loads(feat_imp.to_json())
+    return jsonify({'status': 'pass',
+                    'data': feat_imp_json})
 
 
 
