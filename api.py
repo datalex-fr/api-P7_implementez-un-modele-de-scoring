@@ -48,3 +48,30 @@ def selected_client_data():
     return jsonify({'status': 'pass',
                     'y_client': y_client_json,
                     'data': data_x_json})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if __name__ == "__main__":
+    api.run()
+
