@@ -23,13 +23,13 @@ y = pd.concat([y_test, y_train], axis=0)
 #Instance flask
 app = Flask(__name__)
 
-@app.route("/")
+@app.route("/app/")
 def index():
     return "Hello world!"
 
 
 #Id liste client
-@app.route('/id/')
+@app.route('/app/id/')
 def ids_list():
     id_list = pd.Series(list(X.index.sort_values()))
     id_list_json = json.loads(id_list.to_json())
@@ -38,7 +38,7 @@ def ids_list():
 
 
 #/data_client/?SK_ID_CURR=165690
-@app.route('/data_client/')
+@app.route('/app/data_client/')
 def selected_client_data():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     x_client = X.loc[selected_id_client: selected_id_client]
