@@ -19,7 +19,7 @@ y_train_sample = y_train.iloc[0: 100]
 
 X = pd.concat([X_test, X_train], axis=0)
 y = pd.concat([y_test, y_train], axis=0)
-
+preproc_cols = X_train.columns
 #Instance flask
 app = Flask(__name__)
 
