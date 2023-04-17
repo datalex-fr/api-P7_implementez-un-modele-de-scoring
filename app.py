@@ -37,7 +37,7 @@ def ids_list():
                     'data': id_list_json})
 
 
-#/data_client/?SK_ID_CURR=165690
+#/data_client/?SK_ID_CURR=100083
 @app.route('/data_client/')
 def selected_client_data():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
