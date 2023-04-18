@@ -85,9 +85,9 @@ def neigh_client():
 
 
 
-@app.route('/shap_val/')
+@app.route('/shap_values/')
 #get shap values of the client and 20 nearest neighbors
-#/shap_val/?SK_ID_CURR=330430
+#/shap_values/?SK_ID_CURR=330430
 def shap_value():
     #selectionner l'id client en requete http
     selected_id_client = int(request.args.get('SK_ID_CURR'))
@@ -118,8 +118,8 @@ def shap_value():
 
 
 #affichage donnée
-@app.route('/all_proc_data/')
-def all_proc_data():
+@app.route('/all_proc_train_data/')
+def all_proc_train_data():
     #recuperer toutes les données de X_train et y_train
     #retourner le flux en json
     X_train_json = json.loads(x_train_sample.to_json())
@@ -130,8 +130,8 @@ def all_proc_data():
 
 
 #score client 
-#/score_client/?SK_ID_CURR=330430
-@app.route('/score_client/')
+#/score_du_client/?SK_ID_CURR=330430
+@app.route('/score_du_client/')
 def score_client():
     #selectionner l'id client en requete http
     client_id = int(request.args.get('SK_ID_CURR'))
