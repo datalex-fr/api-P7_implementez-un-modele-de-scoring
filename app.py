@@ -52,8 +52,8 @@ def selected_client_data():
 
 
 
-#chercher les 20 NN du train_set
-def get_df_neigh_20(selected_id_client):
+#chercher les 10 NN du train_set
+def get_df_neigh_10(selected_id_client):
     #fit des NN
     NN = NearestNeighbors(n_neighbors=10)
     NN.fit(X_train)
@@ -72,7 +72,7 @@ def get_df_neigh_20(selected_id_client):
 def neigh_client():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     #selectionner l'id client en requete http et retourner les NN
-    data_neigh, y_neigh = get_df_neigh_20(selected_id_client)
+    data_neigh, y_neigh = get_df_neigh_10(selected_id_client)
     #convertir en JSON
     data_neigh_json = json.loads(data_neigh.to_json())
     y_neigh_json = json.loads(y_neigh.to_json())
@@ -92,7 +92,7 @@ def shap_value():
     #selectionner l'id client en requete http
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     #recuperer le NN
-    X_neigh, y_neigh = get_df_neigh_20(selected_id_client)
+    X_neigh, y_neigh = get_df_neigh_10(selected_id_client)
     X_client = X.loc[selected_id_client: selected_id_client]
     #preparer les valeurs shap des NN + client
     shap.initjs()
