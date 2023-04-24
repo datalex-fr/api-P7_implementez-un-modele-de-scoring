@@ -86,7 +86,7 @@ def neigh_client():
 
 
 @app.route('/shap_values/')
-#get shap values of the client and 20 nearest neighbors
+#shap values du client et de ses 10 nearest neighbors
 #/shap_values/?SK_ID_CURR=330430
 def shap_value():
     #selectionner l'id client en requete http
