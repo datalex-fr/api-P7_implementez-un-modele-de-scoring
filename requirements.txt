@@ -1,10 +1,11 @@
 Flask==2.1.0
 joblib==1.1.0
 pandas==1.4.2
-scikit_learn==1.1.1
+scikit_learn==1.0.2
 shap==0.40.0
 streamlit
 gunicorn
 Jinja2
 lightgbm
 dill
+python-
