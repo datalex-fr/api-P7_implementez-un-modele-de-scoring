@@ -72,16 +72,16 @@ def get_df_neigh_10(selected_id_client):
 def neigh_client():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     #selectionner l'id client en requete http et retourner les NN
-    data_neigh, y_neigh = get_df_neigh_10(selected_id_client)
+    data_neigh, y_neigh, x_customer = get_df_neigh_10(selected_id_client)
     #convertir en JSON
     data_neigh_json = json.loads(data_neigh.to_json())
     y_neigh_json = json.loads(y_neigh.to_json())
+    x_customer_json = json.loads(x_customer.to_json())
     #retourner le flux en json
     return jsonify({'status': 'pass',
                     'y_neigh':  y_neigh_json,
                     'data_neigh': data_neigh_json},
-                    'x_cust': x_cust_json},
-                   )
+                    'x_custom': x_customer_json,})
 
 
 
