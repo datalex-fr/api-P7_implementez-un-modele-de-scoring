@@ -65,6 +65,23 @@ def get_df_neigh_10(selected_id_client):
     #données et cibles des NN
     x_neigh = X_train.loc[nearest_client_idx, :]
     y_neigh = y_train.loc[nearest_client_idx]
+    return x_neigh, y_neigh
+
+
+
+#chercher les 20 NN du train_set
+def get_df_neigh_20(selected_id_client):
+    #fit des NN
+    NN = NearestNeighbors(n_neighbors=10)
+    NN.fit(X_train)
+    X_client = X.loc[selected_id_client: selected_id_client]
+    idx = NN.kneighbors(X=X_client,
+                        n_neighbors=20,
+                        return_distance=False).ravel()
+    nearest_client_idx = list(X_train.iloc[idx].index)
+    #données et cibles des NN
+    x_neigh = X_train.loc[nearest_client_idx, :]
+    y_neigh = y_train.loc[nearest_client_idx]
     return x_neigh, y_neigh, X_client
 
 #/neigh_client/?SK_ID_CURR=330430
