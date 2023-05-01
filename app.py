@@ -81,7 +81,7 @@ def neigh_client():
     return jsonify({'status': 'pass',
                     'y_neigh':  y_neigh_json,
                     'data_neigh': data_neigh_json,
-                    'x_customer': x_customer_json,})
+                    'x_customer': x_customer_json})
 
 
 
