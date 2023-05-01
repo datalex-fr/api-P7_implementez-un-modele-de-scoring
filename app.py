@@ -29,7 +29,7 @@ def index():
 
 
 #Id liste client
-@app.route('/app/id/')
+@app.route('/id/')
 def ids_list():
     id_list = pd.Series(list(X.index.sort_values()))
     id_list_json = json.loads(id_list.to_json())
@@ -38,7 +38,7 @@ def ids_list():
 
 
 #/data_client/?SK_ID_CURR=330430
-@app.route('/app/data_client/')
+@app.route('/data_client/')
 def selected_client_data():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     x_client = X.loc[selected_id_client: selected_id_client]
@@ -68,7 +68,7 @@ def get_df_neigh_10(selected_id_client):
     return x_neigh, y_neigh
 
 #/neigh_client/?SK_ID_CURR=330430
-@app.route('/app/neigh_client/')
+@app.route('/neigh_client/')
 def neigh_client():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     #selectionner l'id client en requete http et retourner les NN
@@ -86,7 +86,7 @@ def neigh_client():
 
 
 
-@app.route('/app/shap_values/')
+@app.route('/shap_values/')
 #shap values du client et de ses 10 nearest neighbors
 #/shap_values/?SK_ID_CURR=330430
 def shap_value():
@@ -119,7 +119,7 @@ def shap_value():
 
 
 #affichage donnée
-@app.route('/app/all_proc_train_data/')
+@app.route('/all_proc_train_data/')
 def all_proc_train_data():
     #recuperer toutes les données de X_train et y_train
     #retourner le flux en json
@@ -132,7 +132,7 @@ def all_proc_train_data():
 
 #score client 
 #/score_du_client/?SK_ID_CURR=330430
-@app.route('/app/score_du_client/')
+@app.route('/score_du_client/')
 def score_client():
     #selectionner l'id client en requete http
     client_id = int(request.args.get('SK_ID_CURR'))
@@ -147,7 +147,7 @@ def score_client():
 
 
 #features du model lgbm
-@app.route('/app/feature/')
+@app.route('/feature/')
 def features():
     feat = X_test.columns
     f = pd.Series(feat)
@@ -157,7 +157,7 @@ def features():
 
 
 #feature importance du model lgbm
-@app.route('/app/feature_importance/')
+@app.route('/feature_importance/')
 def send_feat_imp():
     feat_imp = pd.Series(model.feature_importances_,
                          index=X_test.columns).sort_values(ascending=False)
