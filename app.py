@@ -80,7 +80,7 @@ def neigh_client():
     #retourner le flux en json
     return jsonify({'status': 'pass',
                     'y_neigh':  y_neigh_json,
-                    'data_neigh': data_neigh_json},
+                    'data_neigh': data_neigh_json,
                     'x_custom': x_customer_json,})
 
 
