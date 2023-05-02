@@ -86,7 +86,7 @@ def get_df_neigh_20(selected_id_client):
 
 #/neigh_client/?SK_ID_CURR=330430
 @app.route('/neigh_client_10/')
-def neigh_client():
+def neigh_client_10():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     #selectionner l'id client en requete http et retourner les NN
     data_neigh, y_neigh = get_df_neigh_10(selected_id_client)
@@ -101,7 +101,7 @@ def neigh_client():
 
 #/thousand_neigh/?SK_ID_CURR=330430
 @app.route('/neigh_client_20/')
-def thous_neigh():
+def neigh_client_20():
     selected_id_customer = int(request.args.get('SK_ID_CURR'))
     x_thousand_neigh, y_thousand_neigh, x_customer = get_df_neigh_20(selected_id_customer)
     x_thousand_neigh_json = json.loads(x_thousand_neigh.to_json())
