@@ -85,11 +85,11 @@ def get_df_neigh_20(selected_id_client):
     return x_neigh, y_neigh, X_client
 
 #/neigh_client/?SK_ID_CURR=330430
-@app.route('/neigh_client/')
+@app.route('/neigh_client_10/')
 def neigh_client():
     selected_id_client = int(request.args.get('SK_ID_CURR'))
     #selectionner l'id client en requete http et retourner les NN
-    data_neigh, y_neigh, x_customer = get_df_neigh_10(selected_id_client)
+    data_neigh, y_neigh = get_df_neigh_10(selected_id_client)
     #convertir en JSON
     data_neigh_json = json.loads(data_neigh.to_json())
     y_neigh_json = json.loads(y_neigh.to_json())
@@ -97,8 +97,21 @@ def neigh_client():
     #retourner le flux en json
     return jsonify({'status': 'pass',
                     'y_neigh':  y_neigh_json,
-                    'data_neigh': data_neigh_json,
-                    'x_custom': x_customer_json})
+                    'data_neigh': data_neigh_json})
+
+#/thousand_neigh/?SK_ID_CURR=330430
+@app.route('/neigh_client_20/')
+def thous_neigh():
+    selected_id_customer = int(request.args.get('SK_ID_CURR'))
+    x_thousand_neigh, y_thousand_neigh, x_customer = get_df_neigh_20(selected_id_customer)
+    x_thousand_neigh_json = json.loads(x_thousand_neigh.to_json())
+    y_thousand_neigh_json = json.loads(y_thousand_neigh.to_json())
+    x_customer_json = json.loads(x_customer.to_json())
+    return jsonify({'status': 'pass',
+                    'X_thousand_neigh': x_thousand_neigh_json,
+                    'x_custom': x_customer_json,
+                    'y_thousand_neigh': y_thousand_neigh_json})
+
 
 
 
