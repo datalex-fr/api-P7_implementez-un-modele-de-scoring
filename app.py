@@ -93,7 +93,6 @@ def neigh_client_10():
     #convertir en JSON
     data_neigh_json = json.loads(data_neigh.to_json())
     y_neigh_json = json.loads(y_neigh.to_json())
-    x_customer_json = json.loads(x_customer.to_json())
     #retourner le flux en json
     return jsonify({'status': 'pass',
                     'y_neigh':  y_neigh_json,
