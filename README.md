@@ -6,7 +6,7 @@ https://oc-p7-api7.herokuapp.com/id/
 - Les données du client choisi
 https://oc-p7-api7.herokuapp.com/data_client/?SK_ID_CURR=330430
 - Les voisins les plus proches
-https://oc-p7-api7.herokuapp.com/neigh_client/?SK_ID_CURR=330430
+https://oc-p7-api7.herokuapp.com/neigh_client_10/?SK_ID_CURR=330430
 - Le shap local
 https://oc-p7-api7.herokuapp.com/shap_values/?SK_ID_CURR=330430
 - Toutes les données entrainées
