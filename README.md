@@ -16,5 +16,6 @@ https://oc-p7-api7.herokuapp.com/all_proc_train_data/
 - Score du client selon threshold
 https://oc-p7-api7.herokuapp.com/score_du_client/?SK_ID_CURR=330430
 
+k
 
 https://github.com/datalex-fr/api
